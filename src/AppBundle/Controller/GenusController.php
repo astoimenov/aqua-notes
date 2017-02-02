@@ -6,20 +6,21 @@ use AppBundle\Entity\Genus;
 use AppBundle\Entity\GenusNote;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
-class GenusController extends Controller
+class GenusController extends BaseController
 {
     /**
-     * Entity manager
+     * Entity manager.
+     *
      * @var [type]
      */
     protected $manager;
 
     /**
-     * Doctrine entity repository
+     * Doctrine entity repository.
+     *
      * @var [type]
      */
     protected $repository;
@@ -29,7 +30,7 @@ class GenusController extends Controller
      *
      * @return Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction($value='')
+    public function indexAction()
     {
         $genuses = $this->getRepository(Genus::class)->findAllPublished();
 
@@ -75,19 +76,14 @@ class GenusController extends Controller
      */
     public function showAction(Genus $genus)
     {
-        // $cache = $this->get('doctrine_cache.providers.my_markdown_cache');
-        // $key = md5($funFact);
-        // if ($cache->contains($key)) {
-        //     $funFact = $cache->fetch($key);
-        // } else {
-        //     $funFact = $this->get('markdown.parser')->transform($funFact);
-        //     $cache->save($key, $funFact);
-        // }
-
-        $recentNotes = $this->getRepository(GenusNote::class)->findAllRecentNotesForGenus($genus);
+        $recentNotes = $this->getRepository(GenusNote::class)
+            ->findAllRecentNotesForGenus($genus);
+        $markdownParser = $this->get('app.markdown_transformer');
+        $funFact = $markdownParser->parse($genus->getFunFact());
 
         return $this->render('AppBundle:Genus:show.html.twig', [
             'genus' => $genus,
+            'funFact' => $funFact,
             'recentNotesCount' => count($recentNotes),
         ]);
     }
@@ -115,23 +111,5 @@ class GenusController extends Controller
         ];
 
         return new JsonResponse($data);
-    }
-
-    public function getManager()
-    {
-        if (!$this->manager) {
-            $this->manager = $this->get('doctrine')->getManager();
-        }
-
-        return $this->manager;
-    }
-
-    public function getRepository($modelClass)
-    {
-        if (!$this->repository) {
-            $this->repository = $this->getManager()->getRepository($modelClass);
-        }
-
-        return $this->repository;
     }
 }

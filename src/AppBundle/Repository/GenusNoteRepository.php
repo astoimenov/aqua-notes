@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityRepository;
 class GenusNoteRepository extends EntityRepository
 {
     /**
-     * Find all recent notes for genus
+     * Find all recent notes for genus.
      *
      * @return AppBundle\Entity\GenusNote[]
      */

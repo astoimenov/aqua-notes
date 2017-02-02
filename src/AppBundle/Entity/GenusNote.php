@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Genus;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,7 +16,6 @@ class GenusNote
      * @ORM\Column(type="integer")
      */
     private $id;
-
 
     /**
      * @ORM\Column(type="string")

@@ -25,6 +25,7 @@ class Genus
 
     /**
      * @ORM\Column(type="string")
+     *
      * @var string
      */
     private $subFamily;
@@ -39,7 +40,7 @@ class Genus
      */
     private $funFact;
 
-     /**
+    /**
      * @ORM\Column(type="boolean")
      */
     private $isPublished = true;
@@ -50,7 +51,7 @@ class Genus
      */
     private $notes;
 
-    function __construct()
+    public function __construct()
     {
         $this->notes = new ArrayCollection();
     }
@@ -134,7 +135,7 @@ class Genus
      */
     public function getFunFact()
     {
-        return $this->funFact;
+        return  '**Test**'.$this->funFact;
     }
 
     /**

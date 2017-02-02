@@ -32,7 +32,7 @@ class LoadFixtures implements FixtureInterface
             'Paralithodes',
             'Chelonia',
             'Trichechus',
-            'Eumetopias'
+            'Eumetopias',
         ];
 
         $randomKey = array_rand($genera);

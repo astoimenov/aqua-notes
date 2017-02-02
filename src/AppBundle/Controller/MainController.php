@@ -2,9 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
-class MainController extends Controller
+class MainController extends BaseController
 {
     public function homepageAction()
     {

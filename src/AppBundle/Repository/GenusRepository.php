@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityRepository;
 class GenusRepository extends EntityRepository
 {
     /**
-     * Find all published genuses
+     * Find all published genuses.
      *
      * @return AppBundle\Entity\Genus[]
      */

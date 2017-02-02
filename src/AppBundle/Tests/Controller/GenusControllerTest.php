@@ -12,5 +12,4 @@ class GenusControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/genus/{genusName}');
     }
-
 }
