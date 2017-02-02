@@ -6,6 +6,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class BaseController extends Controller
 {
+    /**
+     * Entity manager.
+     *
+     * @var \Doctrine\ORM\EntityManagerInterface
+     */
+    protected $manager;
+
+    /**
+     * Doctrine entity repository.
+     *
+     * @var \Doctrine\Common\Persistence\ObjectRepository
+     */
+    protected $repository;
+
     public function getManager()
     {
         if (!$this->manager) {

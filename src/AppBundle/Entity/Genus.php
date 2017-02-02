@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\GenusRepository")
@@ -20,18 +21,21 @@ class Genus
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank()
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string")
-     *
-     * @var string
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SubFamily")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank()
      */
     private $subFamily;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank()
+     * @Assert\Range(min=0, minMessage="Negative species! Come on...")
      */
     private $speciesCount;
 
@@ -44,6 +48,12 @@ class Genus
      * @ORM\Column(type="boolean")
      */
     private $isPublished = true;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     * @Assert\NotBlank()
+     */
+    private $firstDiscoveredAt;
 
     /**
      * @ORM\OneToMany(targetEntity="GenusNote", mappedBy="genus")
@@ -97,7 +107,7 @@ class Genus
      *
      * @return self
      */
-    public function setSubFamily(string $subFamily)
+    public function setSubFamily(SubFamily $subFamily)
     {
         $this->subFamily = $subFamily;
 
@@ -135,7 +145,7 @@ class Genus
      */
     public function getFunFact()
     {
-        return  '**Test**'.$this->funFact;
+        return  $this->funFact;
     }
 
     /**
@@ -189,5 +199,39 @@ class Genus
     public function getNotes()
     {
         return $this->notes;
+    }
+
+    /**
+     * Gets the value of firstDiscoveredAt.
+     *
+     * @return mixed
+     */
+    public function getFirstDiscoveredAt()
+    {
+        return $this->firstDiscoveredAt;
+    }
+
+    /**
+     * Sets the value of firstDiscoveredAt.
+     *
+     * @param mixed $firstDiscoveredAt the first discovered at
+     *
+     * @return self
+     */
+    public function setFirstDiscoveredAt($firstDiscoveredAt)
+    {
+        $this->firstDiscoveredAt = $firstDiscoveredAt;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of id.
+     *
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

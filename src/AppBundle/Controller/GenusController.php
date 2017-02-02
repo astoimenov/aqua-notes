@@ -12,20 +12,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 class GenusController extends BaseController
 {
     /**
-     * Entity manager.
-     *
-     * @var [type]
-     */
-    protected $manager;
-
-    /**
-     * Doctrine entity repository.
-     *
-     * @var [type]
-     */
-    protected $repository;
-
-    /**
      * @Route("/genus", name="genus_index")
      *
      * @return Symfony\Component\HttpFoundation\Response

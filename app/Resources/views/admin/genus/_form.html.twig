@@ -1,0 +1,12 @@
+{{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.subFamily) }}
+    {{ form_row(form.speciesCount, {
+        'label': 'Number of Species'
+    }) }}
+    {{ form_row(form.funFact) }}
+    {{ form_row(form.isPublished) }}
+    {{ form_row(form.firstDiscoveredAt) }}
+
+    <button type="submit" class="btn btn-primary" formnovalidate>Save</button>
+{{ form_end(form) }}
