@@ -6,6 +6,7 @@ use AppBundle\Entity\Genus;
 use AppBundle\Form\GenusFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * @Route("/admin")
@@ -14,6 +15,7 @@ class GenusAdminController extends BaseController
 {
     /**
      * @Route("/genus", name="admin_genus_index")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function indexAction()
     {
@@ -37,7 +39,8 @@ class GenusAdminController extends BaseController
             $manager->persist($form->getData());
             $manager->flush();
 
-            $this->addFlash('success', 'Genus created!');
+            $message = sprintf('Genus created by you: %s!', $this->getUser()->getEmail());
+            $this->addFlash('success', $message);
 
             return $this->redirectToRoute('admin_genus_index');
         }

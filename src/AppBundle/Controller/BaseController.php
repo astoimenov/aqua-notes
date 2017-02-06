@@ -20,6 +20,9 @@ class BaseController extends Controller
      */
     protected $repository;
 
+    /**
+     * @return \Doctrine\ORM\EntityManagerInterface
+     */
     public function getManager()
     {
         if (!$this->manager) {
@@ -29,6 +32,11 @@ class BaseController extends Controller
         return $this->manager;
     }
 
+    /**
+     * @param  string Model class for the repository
+     *
+     * @return \Doctrine\ORM\EntityManagerInterface
+     */
     public function getRepository($modelClass)
     {
         if (!$this->repository) {
